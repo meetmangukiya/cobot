@@ -25,7 +25,8 @@ def get_room_ids(rooms):
 
     ids = dict()
     for room in rooms:
-        rq = requests.get("https://api.gitter.im/v1/rooms?q={room_name}".format(roon_name=room), headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)})
+        rq = requests.get("https://api.gitter.im/v1/rooms?q={room_name}".format(roon_name=room),
+                          headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)})
         response = json.loads(rq.json())
         for i in response:
             ids[i.name] = i.id
@@ -40,6 +41,5 @@ def get_messages(id):
     """
 
     return json.loads(requests.get("https://stream.gitter.im/v1/rooms/{room_id}/chatMessagges".foramt(room_id=id),
-                        stream=True,
-                        headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)}).json())
-
+                                   stream=True,
+                                   headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)}).json())
