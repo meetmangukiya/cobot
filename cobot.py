@@ -55,3 +55,17 @@ def listen(regex, handlers=handlers):
         handlers[regex] = func
         func()
     return wrap
+
+def handle_messages(res):
+    """
+    Call the handlers if the message matches the handler's regex.
+
+    :param res:
+        The requests response object of a stream api
+    """
+    for msg in res.iter_lines():
+        if msg:
+            msg = msg.decode('utf-8')
+            for handler in handlers:
+                if re.match(handler, msg.text):
+                    handlers[handler](msg)
