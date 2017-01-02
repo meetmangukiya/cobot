@@ -31,7 +31,7 @@ def get_room_ids(rooms):
         rq = requests.get("https://api.gitter.im/v1/rooms?q={room_name}".format(roon_name=room),
                           headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)})
         response = json.loads(rq.json())
-        for i in response:
+        for i in response.results:
             ids[i.name] = i.id
     return ids
 
@@ -82,6 +82,6 @@ def send_message(room_id, msg):
     :returns:
         The response object of the request.
     """
-    
+
     return requests.post("https://api.gitter.im/v1/rooms/{room_id}/chatMessagges".format(room_id),
                   params={"text": msg})
