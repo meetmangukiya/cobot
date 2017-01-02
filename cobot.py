@@ -17,6 +17,7 @@ ROOMS = [
 
 global handlers
 handlers = dict()
+
 def get_room_ids(rooms):
     """
     :pararm rooms:
@@ -69,3 +70,18 @@ def handle_messages(res):
             for handler in handlers:
                 if re.match(handler, msg.text):
                     handlers[handler](msg)
+
+def send_message(room_id, msg):
+    """
+    Send a message to a room
+
+    :param room_id:
+        ID of the room to send message to.
+    :param msg:
+        The message to be sent.
+    :returns:
+        The response object of the request.
+    """
+    
+    return requests.post("https://api.gitter.im/v1/rooms/{room_id}/chatMessagges".format(room_id),
+                  params={"text": msg})
