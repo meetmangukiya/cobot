@@ -15,6 +15,8 @@ ROOMS = [
 # Functionality
 # -------------
 
+global handlers
+handlers = dict()
 def get_room_ids(rooms):
     """
     :pararm rooms:
@@ -43,3 +45,13 @@ def get_messages(id):
     return json.loads(requests.get("https://stream.gitter.im/v1/rooms/{room_id}/chatMessagges".foramt(room_id=id),
                                    stream=True,
                                    headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)}).json())
+
+def listen(regex, handlers=handlers):
+    """
+    A decorator to add the decorating function as a handler of
+    message matching given regex.
+    """
+    def wrap(func):
+        handlers[regex] = func
+        func()
+    return wrap
