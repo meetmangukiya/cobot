@@ -1,5 +1,6 @@
 import json
 import requests
+import re
 
 # Configuration
 # -------------
@@ -15,7 +16,6 @@ ROOMS = [
 # Functionality
 # -------------
 
-global handlers
 handlers = dict()
 
 def get_room_ids(rooms):
