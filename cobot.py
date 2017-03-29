@@ -43,7 +43,7 @@ def get_messages(id):
         A **requests response** object of the keep-alive request for getting the messages.
     """
 
-    return requests.get("https://stream.gitter.im/v1/rooms/{room_id}/chatMessagges".foramt(room_id=id),
+    return requests.get("https://stream.gitter.im/v1/rooms/{room_id}/chatMessagges".format(room_id=id),
                         stream=True,
                         headers={"Authorization": "Bearer {token}".format(token=GITTER_TOKEN)})
 
